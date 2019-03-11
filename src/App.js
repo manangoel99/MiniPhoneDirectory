@@ -10,19 +10,27 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      num: 0,
       contacts : [],
     };
     this.getData.bind(this);
   }
 
   getData = (val) => {
-    console.log(val);
+    this.setState(state => ({
+      num: state.num,
+      contacts: state.contacts.filter(function(item) {
+        return item.id !== val;
+      })
+    }));
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState(state => ({
+      num: state.num + 1,
       contacts: state.contacts.concat({
+        id: state.num + 1,
         name: document.getElementById("person-name").value,
         number: document.getElementById("person-number").value,
       }),
